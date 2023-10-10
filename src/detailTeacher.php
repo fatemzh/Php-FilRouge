@@ -1,3 +1,22 @@
+<?php
+    // Inclure le fichier Database.php
+    include '../Database.php';
+
+    $idTeacher = $_GET["idTeacher"];
+    // Créer une instance de la classe Database
+    $db = new Database();
+
+    // Récupérer la liste des enseignants depuis la base de données et leurs sections
+    $enseignant = $db->getOneTeacher($idTeacher);
+    $section = $db->getTeacherSection($idTeacher);  
+
+    // Vérifiez si l'enseignant a été trouvé
+    if (empty($enseignant)) {
+        echo "Enseignant non trouvé.";
+        exit;
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -35,11 +54,16 @@
 
     <div class="container">
         <div class="user-head">
-            <h3>Détail : Grégory Charmier
+            <h3>Détail : 
+                <?php 
+                    echo $enseignant["teaFirstname"] . " " . $enseignant["teaName"];
+                ?>
                 <img style="margin-left: 1vw;" height="20em" src="./img/male.png" alt="male symbole">
             </h3>
             <p>
-                Informatique
+                <?php
+                    echo $section["secName"];
+                ;?>
             </p>
             <div class="actions">
 
@@ -49,15 +73,23 @@
                     <img height="20em" src="./img/delete.png" alt="delete icon"> </a>
 
             </div>
-        </div>
-        <div class="user-body">
-            <div class="left">
-                <p>Surnom : GregLeBarbar</p>
-                <p>C'est son nom de guerrier échiquéen sur les différentes plateformes de jeu.</p>
             </div>
-        </div>
+            <div class="user-body">
+                <div class="left">
+                    <p>Surnom : 
+                        <?php
+                            echo $enseignant["teaNickname"];
+                        ?>
+                    </p>
+                    <p>
+                        <?php
+                            echo $enseignant["teaOrigine"];
+                        ;?>
+                    </p>
+                </div>
+            </div>
         <div class="user-footer">
-            <a href="index.html">Retour à la page d'accueil</a>
+            <a href="./index.php">Retour à la page d'accueil</a>
         </div>
 
     </div>

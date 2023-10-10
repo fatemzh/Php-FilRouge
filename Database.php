@@ -36,22 +36,15 @@
 
     // Méthode pour formater les résultats d'une requête en un tableau associatif
     private function formatData($result){
-        // Vérifier s'il y a des résultats
-        if ($result && $result->rowCount() > 0) {
-            // Récupérer les données sous forme de tableau associatif
-            $teachers = $result->fetchAll(PDO::FETCH_ASSOC);
-            return $teachers;
-        } else {
-            // Gérer le cas où il n'y a aucun enseignant
-            return [];
-        }
+        $teachers = $result->fetchAll(PDO::FETCH_ASSOC);
+        return $teachers;
     }
 
     // Méthode pour récupérer tous les enseignants
     public function getAllTeachers(){
         try {
             // Requête SQL pour récupérer les données des enseignants
-            $query = "SELECT teaName, teaNickname FROM t_teacher";
+            $query = "SELECT idTeacher, teaName, teaNickname FROM t_teacher";
 
             // Exécuter la requête SQL
             $result = $this->querySimpleExecute($query);
@@ -72,24 +65,92 @@
     // Requête qui permet de préparer, de binder et d’exécuter une requête (select avec where ou insert, update et delete)
     private function queryPrepareExecute($query, $binds){
         
-        
+        try{
+            // Requête SQL
+            $result= $this->connector->prepare($query);
+
+            // Lie les paramètres aux valeurs du tableau $binds
+            foreach ($binds as $param => $value)
+            {
+                $result->bindValue($param, $value);
+            }
+            $result->execute();
+            return $result;
+            
+        }catch (PDOException $e) {
+            // Gérer les erreurs de la requête SQL
+            echo "Erreur de requête SQL : " . $e->getMessage();
+            // Gérer l'erreur de manière appropriée (par exemple, jeter une exception)
+            throw $e;
+        }
     }
 
 
     // Vide le jeu d’enregistrement
     private function unsetData($req){
-
-        // TODO: vider le jeu d�enregistrement
+        $req->closeCursor();
     }
 
     // Récupère la liste des informations pour 1 enseignant
     public function getOneTeacher($id){
+        try{
+            // Requête SQL pour récupérer les données des enseignants
+            $query = "SELECT * FROM t_teacher WHERE idTeacher = $id";
 
-        // TODO: r�cup�re la liste des informations pour 1 enseignant
-        // TODO: avoir la requ�te sql pour 1 enseignant (utilisation de l'id)
-        // TODO: appeler la m�thode pour executer la requ�te
-        // TODO: appeler la m�thode pour avoir le r�sultat sous forme de tableau
-        // TODO: retour l'enseignant
+            // Requête SQL pour récupérer les données des enseignants
+            $binds = [
+                'id' => $id
+            ];
+
+            // Exécuter la requête SQL
+            // $result = $this->queryPrepareExecute($query, $binds);
+            $result = $this->querySimpleExecute($query);
+
+            // Formater les données
+            $teachers = $this->formatData($result);
+            
+            // Renvoie le tableau associatif 
+            return $teachers[0];
+        }catch (PDOException $e) {
+            // Gérer les erreurs de la requête SQL
+            echo "Erreur de requête SQL : ". $e->getMessage();
+            // Gérer l'erreur de manière appropriée
+            return [];
+        }
+    }
+
+    public function getTeacherSection($id) {
+        try {
+            // Requête SQL pour récupérer la section d’un enseignant
+            $query = "SELECT secName 
+                      FROM t_section
+                      INNER JOIN t_teacher ON idSection = fkSection
+                      WHERE idTeacher = '$id'";
+    
+            // Exécute la requête SQL
+            $result = $this->querySimpleExecute($query);
+    
+            // Formater les données
+            $teacherSection = $this->formatData($result);
+    
+            // Renvoie le tableau associatif
+            return $teacherSection[0];
+        } catch (PDOException $e) {
+            // Gérer les erreurs de la requête SQL
+            echo "Erreur de requête SQL : " . $e->getMessage();
+            // Gérer l'erreur de manière appropriée
+            return [];
+        }
+    }
+    
+    // Ajouter un enseignant
+    public function addTeacher ($id){
+
+    }
+
+    // Modifier les informations d'un enseignant
+    public function modifyTeacher ($id){
+
     }
  }
 ?>

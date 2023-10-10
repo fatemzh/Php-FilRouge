@@ -1,12 +1,12 @@
 <?php
-// Inclure le fichier Database.php
-include '../Database.php';
+    // Inclure le fichier Database.php
+    include '../Database.php';
 
-// Créer une instance de la classe Database
-$db = new Database();
+    // Créer une instance de la classe Database
+    $db = new Database();
 
-// Récupérer la liste des enseignants depuis la base de données
-$enseignants =  $db->getAllTeachers();
+    // Récupérer la liste des enseignants depuis la base de données
+    $enseignants =  $db->getAllTeachers();
 ?>
 
 <!DOCTYPE html>
@@ -55,20 +55,11 @@ $enseignants =  $db->getAllTeachers();
                         <th>Options</th>
                     </tr>
                 </thead>
-                <?php 
-                foreach ($enseignants as $enseignant) : 
-                ?>
+                <!-- Affichage de chaque ligne d'enseignant avec son nom et son surnom -->
+                <?php foreach ($enseignants as $enseignant) : ?>
                     <tr>
-                        <td>
-                            <?php 
-                            echo $enseignant['teaName']; 
-                            ?>
-                        </td>
-                        <td>
-                            <?php 
-                            echo $enseignant['teaNickname']; 
-                            ?>
-                        </td>
+                        <td><?php echo $enseignant['teaName']; ?></td>
+                        <td><?php echo $enseignant['teaNickname']; ?></td>
                         <td class="containerOptions">
                             <a href="#">
                                 <img src="./img/edit.png" alt="edit">
@@ -76,14 +67,13 @@ $enseignants =  $db->getAllTeachers();
                             <a href="javascript:confirmDelete()">
                                 <img src="./img/delete.png" alt="delete">
                             </a>
-                            <a href="#">
+                            <!-- Lien qui mène vers la page détail de chaque enseignant -->
+                            <a href="./detailTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
                                 <img src="./img/detail.png" alt="detail">
                             </a>
                         </td>
                     </tr>
-                <?php 
-                endforeach; 
-                ?>
+                <?php endforeach; ?>
             </table>
         </form>
         <script src="js/script.js"></script>
