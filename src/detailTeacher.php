@@ -9,12 +9,6 @@
     // Récupérer la liste des enseignants depuis la base de données et leurs sections
     $enseignant = $db->getOneTeacher($idTeacher);
     $section = $db->getTeacherSection($idTeacher);  
-
-    // Vérifiez si l'enseignant a été trouvé
-    if (empty($enseignant)) {
-        echo "Enseignant non trouvé.";
-        exit;
-    }
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +42,7 @@
         <nav>
             <h2>Zone pour le menu</h2>
             <a href="./index.php">Accueil</a>
-            <a href="addTeacher.html">Ajouter un enseignant</a>
+            <a href="addTeacher.php">Ajouter un enseignant</a>
         </nav>
     </header>
 

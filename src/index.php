@@ -39,8 +39,8 @@
         </div>
         <nav>
             <h2>Zone pour le menu</h2>
-            <a href="index.html">Accueil</a>
-            <a href="addTeacher.html">Ajouter un enseignant</a>
+            <a href="./index.php">Accueil</a>
+            <a href="addTeacher.php">Ajouter un enseignant</a>
         </nav>
     </header>
 

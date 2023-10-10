@@ -1,3 +1,13 @@
+<?php
+    // Inclure le fichier Database.php
+    include '../Database.php';
+
+    // Créer une instance de la classe Database
+    $db = new Database();
+
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -28,8 +38,8 @@
         </div>
         <nav>
             <h2>Zone pour le menu</h2>
-            <a href="index.html">Accueil</a>
-            <a href="addTeacher.html">Ajouter un enseignant</a>
+            <a href="./index.php">Accueil</a>
+            <a href="addTeacher.php">Ajouter un enseignant</a>
         </nav>
     </header>
 
@@ -76,7 +86,7 @@
             </form>
         </div>
         <div class="user-footer">
-            <a href="index.html">Retour à la page d'accueil</a>
+            <a href="./index.php">Retour à la page d'accueil</a>
         </div>
     </div>
 
