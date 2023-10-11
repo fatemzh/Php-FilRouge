@@ -23,7 +23,6 @@
 </head>
 
 <body>
-
     <header>
         <div class="container-header">
             <div class="titre-header">
@@ -60,8 +59,11 @@
                 ;?>
             </p>
             <div class="actions">
-
-                <a href="#">
+                <!-- Lien qui mène vers la page détail de chaque enseignant -->
+                <a href="./detailTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
+                    <img src="./img/detail.png" alt="detail">
+                </a>
+                <a href="./updateTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
                     <img height="20em" src="./img/edit.png" alt="edit icon"></a>
                 <a href="javascript:confirmDelete()">
                     <img height="20em" src="./img/delete.png" alt="delete icon"> </a>

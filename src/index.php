@@ -61,13 +61,12 @@
                         <td><?php echo $enseignant['teaName']; ?></td>
                         <td><?php echo $enseignant['teaNickname']; ?></td>
                         <td class="containerOptions">
-                            <a href="#">
+                            <a href="./updateTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
                                 <img src="./img/edit.png" alt="edit">
                             </a>
                             <a href="javascript:confirmDelete()">
                                 <img src="./img/delete.png" alt="delete">
                             </a>
-                            <!-- Lien qui mène vers la page détail de chaque enseignant -->
                             <a href="./detailTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
                                 <img src="./img/detail.png" alt="detail">
                             </a>

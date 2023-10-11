@@ -93,30 +93,23 @@
 
     // Récupère la liste des informations pour 1 enseignant
     public function getOneTeacher($id){
-        try{
-            // Requête SQL pour récupérer les données des enseignants
-            $query = "SELECT * FROM t_teacher WHERE idTeacher = $id";
 
-            // Requête SQL pour récupérer les données des enseignants
-            $binds = [
-                'id' => $id
-            ];
+        // Requête SQL pour récupérer les données des enseignants
+        $query = "SELECT * FROM t_teacher WHERE idTeacher = $id";
 
-            // Exécuter la requête SQL
-            // $result = $this->queryPrepareExecute($query, $binds);
-            $result = $this->querySimpleExecute($query);
+        // Requête SQL pour récupérer les données des enseignants
+        $binds = [
+            'id' => $id
+        ];
 
-            // Formater les données
-            $teachers = $this->formatData($result);
-            
-            // Renvoie le tableau associatif 
-            return $teachers[0];
-        }catch (PDOException $e) {
-            // Gérer les erreurs de la requête SQL
-            echo "Erreur de requête SQL : ". $e->getMessage();
-            // Gérer l'erreur de manière appropriée
-            return [];
-        }
+        // Exécuter la requête SQL
+        $result = $this->querySimpleExecute($query);
+
+        // Formater les données
+        $teachers = $this->formatData($result);
+        
+        // Renvoie le tableau associatif 
+        return $teachers[0];
     }
 
     public function getTeacherSection($id) {
@@ -170,7 +163,7 @@
 
     // Modifier les informations d'un enseignant
     public function modifyTeacher ($id){
-
+        
     }
  }
 ?>
