@@ -1,12 +1,11 @@
 <?php
     // Inclure le fichier Database.php
     include '../Database.php';
-
     // Créer une instance de la classe Database
     $db = new Database();
-
-    session_start();
-?>
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $db->insertTeacher();
+    }?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -45,7 +44,7 @@
 
     <div class="container">
         <div class="user-body">
-            <form action="#" method="post" id="form">
+            <form action="./checkValidationForm.php" method="post" id="form">
                 <h3>Ajout d'un enseignant</h3>
                 <p>
                     <input type="radio" id="genre1" name="genre" value="M" checked>
@@ -75,8 +74,10 @@
                     <label style="display: none" for="section"></label>
                     <select name="section" id="section">
                         <option value="">Section</option>
-                        <option value="info">Informatique</option>
-                        <option value="bois">Bois</option>
+                        <option value="1">Informatique</option>
+                        <option value="2">Bois</option>
+                        <option value="3">Biologie</option>
+                        <option value="4">Infirmerie</option>
                     </select>
                 </p>
                 <p>

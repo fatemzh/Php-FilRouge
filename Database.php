@@ -142,40 +142,31 @@
             return [];
         }
     }
-    
-    // Ajouter un enseignant
-    public function insertTeacher ($teaFirstname, $teaName, $teaGender, $teaNickname, $teaOrigine, $fkSection){
-        try{
-            // Récupère les données du formulaire
-            $teaFirstname = $_POST['firstName'];
-            $teaName = $_POST['name'];
-            $teaGender = $_POST['genre'];
-            $teaNickname = $_POST['nickName'];
-            $teaOrigine = $_POST['origin'];
-            $fkSection = $_POST['section'];
 
-            // Valide les données du formulaire
-            if(empty($teaFirstname) || empty($teaName) || empty($teaGender) || empty($teaNickname || empty($teaOrigine) || empty($fkSection))){
-                echo "Veuillez remplir tous les champs obligatoires";
-            }elseif(isset($teaFirstname) && isset($teaName) && isset($teaGender) && isset($teaNickname) && isset($teaOrigine) && isset($fkSection)){
-                $query = 
-                "INSERT INTO t_teacher (teaFirstname, teaName, teaGender, teaNickname, teaOrigin, fkSection) 
-                VALUES ($teaFirstname, '$teaName', '$teaGender', '$teaNickname', '$teaOrigine', $fkSection)";
-                $result = $this->querySimpleExecute($query);
-                $newTeacher = $this->formatData($result);
+    public function getAllSections(){
 
-                $result = $this->querySimpleExecute($query);
+        //Appeler la méthode privée pour executer la requête
+        $query = 'SELECT * FROM t_section';
 
-                 // Réussite de l'insertion
-                echo "Enseignant inséré avec succès";
-            }
-        } catch (PDOException $e) {
-            // Gérer les erreurs de la requête SQL
-            echo "Erreur de requête SQL : " . $e->getMessage();
-            // Gérer l'erreur de manière appropriée
-            return [];
-        }
+        //Appeler la méthode privéer pour avoir le résultat sous forme de tableau
+        $req = $this->querySimpleExecute($query);
+
+        //Retorune un tableau associatif
+        return $this->formatData($req);
     }
+
+    // Ajouter un enseignant
+    public function insertTeacher($firstName, $name, $gender, $nickname, $origin, $section){
+
+        //Requête SQL
+        $query = "INSERT INTO t_teacher (teaFirstName, teaName, teaGender, teaNickname, teaOrigine, fkSection)  
+        VALUES ( '$firstName', '$name', '$gender', '$nickname', '$origin', $section);";
+
+        //Appeler la méthode pour executer la requête
+        $this->querySimpleExecute($query);
+    }
+    
+
 
     // Modifier les informations d'un enseignant
     public function modifyTeacher ($id){
