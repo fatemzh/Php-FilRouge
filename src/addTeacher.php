@@ -3,9 +3,9 @@
     include '../Database.php';
     // Créer une instance de la classe Database
     $db = new Database();
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $db->insertTeacher();
-    }?>
+    // Récupérez toutes les sections
+    $sections = $db->getAllSections();
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -74,10 +74,12 @@
                     <label style="display: none" for="section"></label>
                     <select name="section" id="section">
                         <option value="">Section</option>
-                        <option value="1">Informatique</option>
-                        <option value="2">Bois</option>
-                        <option value="3">Biologie</option>
-                        <option value="4">Infirmerie</option>
+                        <?php
+                            // Parcourt les sections de la db
+                            foreach ($sections as $section) {
+                                echo "<option value='" . $section['idSection'] . "'>" . $section['secName'] . "</option>";
+                            }
+                        ?>
                     </select>
                 </p>
                 <p>

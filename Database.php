@@ -148,19 +148,24 @@
         return $this->formatData($req);
     }
 
-    // Ajouter un enseignant
+    // Ajout enseignant
     public function insertTeacher($firstName, $name, $gender, $nickname, $origin, $section){
-
+        // Échapper les chaînes de caractères
+        $firstName = $this->connector->quote($firstName);
+        $name = $this->connector->quote($name);
+        $gender = $this->connector->quote($gender);
+        $nickname = $this->connector->quote($nickname);
+        $origin = $this->connector->quote($origin);
+        $section = $this->connector->quote($section);
+    
         //Requête SQL
         $query = "INSERT INTO t_teacher (teaFirstName, teaName, teaGender, teaNickname, teaOrigine, fkSection)  
-        VALUES ( '$firstName', '$name', '$gender', '$nickname', '$origin', $section);";
-
+        VALUES ( $firstName, $name, $gender, $nickname, $origin, $section);";
+    
         //Appeler la méthode pour executer la requête
         $this->querySimpleExecute($query);
     }
     
-
-
     // Modifier les informations d'un enseignant
     public function modifyTeacher ($id){
         
