@@ -44,7 +44,7 @@
 
     <div class="container">
         <div class="user-body">
-            <form action="./checkValidationForm.php" method="post" id="form">
+            <form action="./checkAddTeacherForm.php" method="post" id="form">
                 <h3>Ajout d'un enseignant</h3>
                 <p>
                     <input type="radio" id="genre1" name="genre" value="M" checked>

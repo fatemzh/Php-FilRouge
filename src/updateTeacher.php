@@ -5,8 +5,11 @@
     // Créer une instance de la classe Database
     $db = new Database();
     
-    // Récupérez toutes les sections
+    // Récupère les informations sur l'enseignant et sa section 
     $sections = $db->getAllSections();
+    $idTeacher = $_GET['idTeacher'];
+    $teacherInfo = $db->getOneTeacher($idTeacher);
+    $teacherSection = $db->getTeacherSection($idTeacher);
 ?>
 
 <!DOCTYPE html>
@@ -45,41 +48,40 @@
 
     <div class="container">
         <div class="user-body">
-            <form action="./checkModificationForm.php" method="post" id="form">
+            <form action="./checkUpdateForm.php" method="post" id="form">
                 <h3>Modification d'un enseignant</h3>
-                <p>
-                    <input type="radio" id="genre1" name="genre" value="M" checked>
-                    <label for="genre1">Homme</label>
-                    <input type="radio" id="genre2" name="genre" value="F">
-                    <label for="genre2">Femme</label>
-                    <input type="radio" id="genre3" name="genre" value="A">
-                    <label for="genre3">Autre</label>
-                </p>
+                <input type="radio" id="genre1" name="genre" value="M" <?= $teacherInfo['teaGender'] == 'M' ? 'checked' : ''; ?>>
+                <label for="genre1">Homme</label>
+                <input type="radio" id="genre2" name="genre" value="F" <?= $teacherInfo['teaGender'] == 'F' ? 'checked' : ''; ?>>
+                <label for="genre2">Femme</label>
+                <input type="radio" id="genre3" name="genre" value="A" <?= $teacherInfo['teaGender'] == 'A' ? 'checked' : ''; ?>>
+                <label for="genre3">Autre</label>
+
                 <p>
                     <label for="firstName">Nom :</label>
-                    <input type="text" name="firstName" id="firstName" value="">
+                    <input type="text" name="firstName" id="firstName" value=<?= $teacherInfo['teaFirstname']; ?>>
                 </p>
                 <p>
                     <label for="name">Prénom :</label>
-                    <input type="text" name="name" id="name" value="">
+                    <input type="text" name="name" id="name"  value=<?= $teacherInfo['teaName']; ?>>
                 </p>
                 <p>
                     <label for="nickName">Surnom :</label>
-                    <input type="text" name="nickName" id="nickName" value="">
+                    <input type="text" name="nickName" id="nickName" value=<?= $teacherInfo['teaNickname']; ?>>
                 </p>
                 <p>
                     <label for="origin">Origine :</label>
-                    <textarea name="origin" id="origin"></textarea>
+                    <textarea name="origin" id="origin"><?= $teacherInfo['teaOrigine']; ?></textarea>
                 </p>
                 <p>
                     <label style="display: none" for="section"></label>
                     <select name="section" id="section">
                         <option value="">Section</option>
                         <?php
-                            // Parcourt les sections de la db
                             foreach ($sections as $section) {
-                                echo "<option value='" . $section['idSection'] . "'>" . $section['secName'] . "</option>";
-                            }
+                                $teacherSection['secName'] == $section['secName'];
+                                echo "<option value='" . $section['idSection'] . "' $selected>" . $section['secName'] . "</option>";
+                            }                          
                         ?>
                     </select>
                 </p>

@@ -61,6 +61,22 @@
             return [];
         }
     }
+    
+    // Récupère la liste des informations pour 1 enseignant
+    public function getOneTeacher($id){
+
+        // Requête SQL pour récupérer les données des enseignants
+        $query = "SELECT * FROM t_teacher WHERE idTeacher = $id";
+
+        // Exécuter la requête SQL
+        $result = $this->querySimpleExecute($query);
+
+        // Formater les données
+        $teachers = $this->formatData($result);
+        
+        // Renvoie le tableau associatif 
+        return $teachers[0];
+    }
 
     // Requête qui permet de préparer, de binder et d’exécuter une requête (select avec where ou insert, update et delete)
     private function queryPrepareExecute($query, $binds){
@@ -85,31 +101,9 @@
         }
     }
 
-
     // Vide le jeu d’enregistrement
     private function unsetData($req){
         $req->closeCursor();
-    }
-
-    // Récupère la liste des informations pour 1 enseignant
-    public function getOneTeacher($id){
-
-        // Requête SQL pour récupérer les données des enseignants
-        $query = "SELECT * FROM t_teacher WHERE idTeacher = $id";
-
-        // Requête SQL pour récupérer les données des enseignants
-        $binds = [
-            'id' => $id
-        ];
-
-        // Exécuter la requête SQL
-        $result = $this->querySimpleExecute($query);
-
-        // Formater les données
-        $teachers = $this->formatData($result);
-        
-        // Renvoie le tableau associatif 
-        return $teachers[0];
     }
 
     public function getTeacherSection($id) {
@@ -176,8 +170,30 @@
     }
     
     // Modifier les informations d'un enseignant
-    public function modifyTeacher ($id){
-        
+    public function modifyTeacher ($idSection, $firstName, $name, $gender, $nickname, $origin, $section){
+
+        $idTeacher = $_GET['id'];
+
+        // Échapper les chaînes de caractères
+        $firstName = $this->connector->quote($firstName);
+        $name = $this->connector->quote($name);
+        $gender = $this->connector->quote($gender);
+        $nickname = $this->connector->quote($nickname);
+        $origin = $this->connector->quote($origin);
+        $section = $this->connector->quote($section);
+
+        //Requête SQL
+        $query = "UPDATE t_teacher SET 
+        teaFirstName = $firstName, 
+        teaName = $name, 
+        teaGender = $gender, 
+        teaNickname = $nickname, 
+        teaOrigine = $origin, 
+        fkSection = $section
+        WHERE idTeacher = $idTeacher";
+    
+        //Appeler la méthode pour executer la requête
+        $this->querySimpleExecute($query);
     }
  }
 ?>

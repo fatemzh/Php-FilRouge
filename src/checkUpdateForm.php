@@ -9,6 +9,16 @@ session_start();
 //Tableau contenant les erreurs lors du remplissage du formulaire
 $errors = array();
 
+//Vérifie que l'id est présent
+if (isset($_GET['idTeacher'])) {
+    $idTeacher = $_GET['idTeacher'];
+    $teacherInfo = $db->getOneTeacher($idTeacher);
+} else {
+    // Redirigez vers une page d'erreur ou la page d'accueil si l'ID n'est pas défini
+    header("Location: ./index.php");
+    exit;
+}
+
 //Vérification des champs remplis
 $fields = [
     "name" => "Le champ \"Prénom\" est obligatoire.",
@@ -33,7 +43,7 @@ if (count($errors) > 0) {
 }
 else{
     //Modification des information dans la base de données
-    $db->modifyTeacher($_POST["firstName"], $_POST["name"], $_POST["genre"], $_POST["nickName"], $_POST["origin"], $_POST["section"]);
+    $db->modifyTeacher($_GET["idTeacher"], $_POST["firstName"], $_POST["name"], $_POST["genre"], $_POST["nickName"], $_POST["origin"], $_POST["section"]);
     header("Location: ./index.php");
 }
 ?>
