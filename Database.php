@@ -148,6 +148,15 @@
         return $this->formatData($req);
     }
 
+    public function addSection($secName){
+        // Échapper les chaînes de caractères
+        $secName = $this->connector->quote($secName);
+        //Requête SQL
+        $query = "INSERT INTO t_section (secName) VALUES ($secName)";
+        //Exécute la requête 
+        $this->querySimpleExecute($query);
+    }
+
     // Ajout enseignant
     public function insertTeacher($firstName, $name, $gender, $nickname, $origin, $section){
         // Échapper les chaînes de caractères
