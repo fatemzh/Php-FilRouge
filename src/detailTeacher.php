@@ -64,9 +64,11 @@
                     <img src="./img/detail.png" alt="detail">
                 </a>
                 <a href="./updateTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
-                    <img height="20em" src="./img/edit.png" alt="edit icon"></a>
-                <a href="javascript:confirmDelete()">
-                    <img height="20em" src="./img/delete.png" alt="delete icon"> </a>
+                    <img height="20em" src="./img/edit.png" alt="edit icon">
+                </a>
+                <a href="javascript:confirmDelete(<?= $enseignant["idTeacher"]; ?>)">
+                    <img src="./img/delete.png" alt="delete">
+                </a>
 
             </div>
             </div>

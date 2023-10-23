@@ -8,17 +8,9 @@
     // Récupère les informations sur l'enseignant et sa section 
     $sections = $db->getAllSections();
 
-    echo "ID de l'enseignant : " . $_GET['idTeacher'];
-
-    if (isset($_GET['idTeacher'])) {
-        $idTeacher = $_GET['idTeacher'];
-        $teacherInfo = $db->getOneTeacher($idTeacher);
-        $teacherSection = $db->getTeacherSection($idTeacher);
-    } else {
-        header("Location: ./addTeacher.php");
-        exit;
-    }
-    
+    $idTeacher = $_GET['idTeacher'];
+    $infos = $db->getOneTeacher($idTeacher);
+    $sectionTeacher = $db->getTeacherSection($idTeacher);
 ?>
 
 <!DOCTYPE html>
@@ -60,28 +52,28 @@
             <form action="./checkUpdateForm.php" method="post" id="form">
                 <h3>Modification d'un enseignant</h3>
                 <input type="hidden" name="idTeacher" value="<?= $idTeacher; ?>">
-                <input type="radio" id="genre1" name="genre" value="M" <?= $teacherInfo['teaGender'] == 'M' ? 'checked' : ''; ?>>
+                <input type="radio" id="genre1" name="genre" value="M" <?= $infos['teaGender'] == 'M' ? 'checked' : ''; ?>>
                 <label for="genre1">Homme</label>
-                <input type="radio" id="genre2" name="genre" value="F" <?= $teacherInfo['teaGender'] == 'F' ? 'checked' : ''; ?>>
+                <input type="radio" id="genre2" name="genre" value="F" <?= $infos['teaGender'] == 'F' ? 'checked' : ''; ?>>
                 <label for="genre2">Femme</label>
-                <input type="radio" id="genre3" name="genre" value="A" <?= $teacherInfo['teaGender'] == 'A' ? 'checked' : ''; ?>>
+                <input type="radio" id="genre3" name="genre" value="A" <?= $infos['teaGender'] == 'A' ? 'checked' : ''; ?>>
                 <label for="genre3">Autre</label>
 
                 <p>
                     <label for="firstName">Nom :</label>
-                    <input type="text" name="firstName" id="firstName" value=<?= $teacherInfo['teaFirstname']; ?>>
+                    <input type="text" name="firstName" id="firstName" value=<?= $infos['teaFirstname']; ?>>
                 </p>
                 <p>
                     <label for="name">Prénom :</label>
-                    <input type="text" name="name" id="name"  value=<?= $teacherInfo['teaName']; ?>>
+                    <input type="text" name="name" id="name"  value=<?= $infos['teaName']; ?>>
                 </p>
                 <p>
                     <label for="nickName">Surnom :</label>
-                    <input type="text" name="nickName" id="nickName" value=<?= $teacherInfo['teaNickname']; ?>>
+                    <input type="text" name="nickName" id="nickName" value=<?= $infos['teaNickname']; ?>>
                 </p>
                 <p>
                     <label for="origin">Origine :</label>
-                    <textarea name="origin" id="origin"><?= $teacherInfo['teaOrigine']; ?></textarea>
+                    <textarea name="origin" id="origin"><?= $infos['teaOrigine']; ?></textarea>
                 </p>
                 <p>
                     <label style="display: none" for="section"></label>
@@ -89,7 +81,7 @@
                         <option value="">Section</option>
                         <?php
                             foreach ($sections as $section) {
-                                $selected = ($teacherSection['secName'] == $section['secName']) ? "selected" : "";
+                                $selected = ($sectionTeacher['secName'] == $section['secName']) ? "selected" : "";
                                 echo "<option value='" . $section['idSection'] . "' $selected>" . $section['secName'] . "</option>";
                             }                                                      
                         ?>
