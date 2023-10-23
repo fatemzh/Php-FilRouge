@@ -170,11 +170,10 @@
     }
     
     // Modifier les informations d'un enseignant
-    public function modifyTeacher ($idSection, $firstName, $name, $gender, $nickname, $origin, $section){
-
-        $idTeacher = $_GET['id'];
+    public function modifyTeacher ($idTeacher, $firstName, $name, $gender, $nickname, $origin, $section){
 
         // Échapper les chaînes de caractères
+        
         $firstName = $this->connector->quote($firstName);
         $name = $this->connector->quote($name);
         $gender = $this->connector->quote($gender);
@@ -193,6 +192,12 @@
         WHERE idTeacher = $idTeacher";
     
         //Appeler la méthode pour executer la requête
+        $this->querySimpleExecute($query);
+    }
+
+    public function deleteTeacher ($idTeacher){
+
+        $query = "DELETE FROM t_teacher WHERE idTeacher = $idTeacher";
         $this->querySimpleExecute($query);
     }
  }

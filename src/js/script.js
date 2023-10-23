@@ -1,5 +1,5 @@
-// Affiche un popup pour confirmer la suppression d'un enseignant
-function confirmDelete() {
-    if (confirm("Êtes-vous sûr de vouloir supprimer l'enseignant?") === true) {
+function confirmDelete(idTeacher) {
+    if (confirm("Êtes-vous sûr de vouloir supprimer l'enseignant?")) {
+        window.location.href = "./deleteTeacher.php?idTeacher=" + idTeacher;
     }
 }

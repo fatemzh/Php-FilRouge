@@ -10,12 +10,12 @@ session_start();
 $errors = array();
 
 //Vérifie que l'id est présent
-if (isset($_GET['idTeacher'])) {
-    $idTeacher = $_GET['idTeacher'];
+if (isset($_POST['idTeacher'])) {
+    $idTeacher = $_POST['idTeacher'];
     $teacherInfo = $db->getOneTeacher($idTeacher);
 } else {
     // Redirigez vers une page d'erreur ou la page d'accueil si l'ID n'est pas défini
-    header("Location: ./index.php");
+    header("Location: ./addTeacher.php");
     exit;
 }
 
@@ -43,7 +43,7 @@ if (count($errors) > 0) {
 }
 else{
     //Modification des information dans la base de données
-    $db->modifyTeacher($_GET["idTeacher"], $_POST["firstName"], $_POST["name"], $_POST["genre"], $_POST["nickName"], $_POST["origin"], $_POST["section"]);
+    $db->modifyTeacher($_POST["idTeacher"], $_POST["firstName"], $_POST["name"], $_POST["genre"], $_POST["nickName"], $_POST["origin"], $_POST["section"]);
     header("Location: ./index.php");
 }
 ?>

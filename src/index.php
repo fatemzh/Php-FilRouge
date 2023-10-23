@@ -64,7 +64,7 @@
                             <a href="./updateTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
                                 <img src="./img/edit.png" alt="edit">
                             </a>
-                            <a href="javascript:confirmDelete()">
+                            <a href="javascript:confirmDelete(<?= $enseignant["idTeacher"]; ?>)">
                                 <img src="./img/delete.png" alt="delete">
                             </a>
                             <a href="./detailTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
