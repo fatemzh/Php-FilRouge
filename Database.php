@@ -44,7 +44,7 @@
     public function getAllTeachers(){
         try {
             // Requête SQL pour récupérer les données des enseignants
-            $query = "SELECT idTeacher, teaName, teaNickname FROM t_teacher";
+            $query = "SELECT idTeacher, teaFirstname, teaNickname FROM t_teacher";
 
             // Exécuter la requête SQL
             $result = $this->querySimpleExecute($query);
@@ -60,7 +60,7 @@
             // Gérer l'erreur de manière appropriée
             return [];
         }
-    }
+    } 
     
     // Récupère la liste des informations pour 1 enseignant
     public function getOneTeacher($id){
@@ -162,7 +162,7 @@
         $section = $this->connector->quote($section);
     
         //Requête SQL
-        $query = "INSERT INTO t_teacher (teaFirstName, teaName, teaGender, teaNickname, teaOrigine, fkSection)  
+        $query = "INSERT INTO t_teacher (teaFirstname, teaName, teaGender, teaNickname, teaOrigine, fkSection)  
         VALUES ( $firstName, $name, $gender, $nickname, $origin, $section);";
     
         //Appeler la méthode pour executer la requête
@@ -183,7 +183,7 @@
 
         //Requête SQL
         $query = "UPDATE t_teacher SET 
-        teaFirstName = $firstName, 
+        teaFirstname = $firstName, 
         teaName = $name, 
         teaGender = $gender, 
         teaNickname = $nickname, 

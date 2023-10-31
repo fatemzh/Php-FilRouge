@@ -58,7 +58,7 @@
                 <!-- Affichage de chaque ligne d'enseignant avec son nom et son surnom -->
                 <?php foreach ($enseignants as $enseignant) : ?>
                     <tr>
-                        <td><?php echo $enseignant['teaName']; ?></td>
+                        <td><?php echo $enseignant['teaFirstname']; ?></td>
                         <td><?php echo $enseignant['teaNickname']; ?></td>
                         <td class="containerOptions">
                             <a href="./updateTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
