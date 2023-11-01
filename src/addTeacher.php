@@ -1,10 +1,20 @@
 <?php
-    // Inclure le fichier Database.php
-    include '../Database.php';
-    // Créer une instance de la classe Database
-    $db = new Database();
-    // Récupérez toutes les sections
-    $sections = $db->getAllSections();
+session_start();
+// Inclure le fichier Database.php
+include '../Database.php';
+include '../src/auth.php';
+
+// Démarre session 
+if ($user) {
+    $_SESSION['user_id'] = $user[0]["idUser"];  
+    $isUserConnected = true;
+} else {
+    $isUserConnected = false;
+}
+// Créer une instance de la classe Database
+$db = new Database();
+// Récupérez toutes les sections
+$sections = $db->getAllSections();
 ?>
 
 <!DOCTYPE html>

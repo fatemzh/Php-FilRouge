@@ -169,5 +169,21 @@
         $binds = array(':idTeacher' => $idTeacher); 
         $this->queryPrepareExecute($query, $binds);
     }
+
+    public function login($useLogin, $userPassword) {
+
+        $query = "SELECT * FROM t_user where useLogin = :useLogin and usePassword = :usePassword";
+
+        // Exécution de la requête. A noter l'utilisation de la méthode ->query()
+        $req = $this->connector->prepare($query);
+        $req -> bindValue('useLogin', $useLogin, PDO::PARAM_STR);
+        $req -> bindValue('usePassword', $userPassword, PDO::PARAM_STR);
+        $req -> execute();
+
+        // On convertit le résultat de la requête en tableau
+        $user = $req->fetchALL(PDO::FETCH_ASSOC);
+
+        return $user[0];
+    }
  }
 ?>

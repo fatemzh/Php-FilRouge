@@ -1,14 +1,23 @@
 <?php
+    session_start();
+
+    if (!isset($_SESSION["user"]) ) {
+    $isUserConnected = false;
+    } else {
+    $isUserConnected = true;
+    $userConnected = $_SESSION["user"];
+    }
+
+    $idTeacher = isset($_GET["idTeacher"]) ? $_GET["idTeacher"] : null;
     // Inclure le fichier Database.php
     include '../Database.php';
 
-    $idTeacher = $_GET["idTeacher"];
     // Créer une instance de la classe Database
     $db = new Database();
 
     // Récupérer la liste des enseignants depuis la base de données et leurs sections
     $enseignant = $db->getOneTeacher($idTeacher);
-    $section = $db->getTeacherSection($idTeacher);  
+    $section = $db->getTeacherSection($idTeacher); 
 ?>
 
 <!DOCTYPE html>
@@ -29,19 +38,28 @@
                 <h1>Surnom des enseignants</h1>
             </div>
             <div class="login-container">
-                <form action="#" method="post">
-                    <label for="user"> </label>
-                    <input type="text" name="user" id="user" placeholder="Login">
-                    <label for="password"> </label>
-                    <input type="password" name="password" id="password" placeholder="Mot de passe">
-                    <button type="submit" class="btn btn-login">Se connecter</button>
-                </form>
+                <?php if ($isUserConnected === true): ?> 
+                    <h2>Bonjour <?php echo $userConnected; ?></h2>
+                    <form action="index.php" method="post">
+                        <button type="submit" name="logout">Se déconnecter</button>
+                    </form>
+                <?php endif; ?>
+                <?php if ($isUserConnected === false): ?>
+                    <h2>Pas connecté</h2>
+                    <form action="index.php" method="post">
+                        <label for="user"> </label>
+                        <input type="text" name="useLogin" id="user" placeholder="Login">
+                        <label for="password"> </label>
+                        <input type="password" name="usePassword" id="password" placeholder="Mot de passe">
+                        <button type="submit" class="btn btn-login">Se connecter</button>
+                    </form>
+                <?php endif; ?>
             </div>
         </div>
         <nav>
             <h2>Zone pour le menu</h2>
-            <a href="./index.php">Accueil</a>
-            <a href="addTeacher.php">Ajouter un enseignant</a>
+            <!-- <a href="./index.php">Accueil</a>
+            <a href="addTeacher.php">Ajouter un enseignant</a> -->
         </nav>
     </header>
 
@@ -60,12 +78,12 @@
             </p>
             <div class="actions">
                 <!-- Lien qui mène vers la page détail de chaque enseignant -->
-                <a href="./updateTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
+                <!-- <a href="./updateTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
                     <img height="20em" src="./img/edit.png" alt="edit icon">
                 </a>
                 <a href="javascript:confirmDelete(<?= $enseignant["idTeacher"]; ?>)">
                     <img src="./img/delete.png" alt="delete">
-                </a>
+                </a> -->
 
             </div>
             </div>

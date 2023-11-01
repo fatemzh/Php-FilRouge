@@ -1,16 +1,26 @@
 <?php
-    // Inclure le fichier Database.php
-    include '../Database.php';
+session_start();
+// Inclure le fichier Database.php
+include '../Database.php';
+include '../src/auth.php';
 
-    // Créer une instance de la classe Database
-    $db = new Database();
-    
-    // Récupère les informations sur l'enseignant et sa section 
-    $sections = $db->getAllSections();
 
-    $idTeacher = $_GET['idTeacher'];
-    $infos = $db->getOneTeacher($idTeacher);
-    $sectionTeacher = $db->getTeacherSection($idTeacher);
+if ($user) {
+    $_SESSION['user_id'] = $user[0]["idUser"];  
+    $isUserConnected = true;
+} else {
+    $isUserConnected = false;
+}
+
+// Créer une instance de la classe Database
+$db = new Database();
+
+// Récupère les informations sur l'enseignant et sa section 
+$sections = $db->getAllSections();
+
+$idTeacher = $_GET['idTeacher'];
+$infos = $db->getOneTeacher($idTeacher);
+$sectionTeacher = $db->getTeacherSection($idTeacher);
 ?>
 
 <!DOCTYPE html>

@@ -1,0 +1,50 @@
+<?php if ($isUserConnected === 1) : ?>
+    <a href="./updateTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
+    <img src="./img/edit.png" alt="edit">
+    </a>
+    <a href="javascript:confirmDelete(<?= $enseignant["idTeacher"]; ?>)">
+    <img src="./img/delete.png" alt="delete">
+    </a>
+    <a href="./detailTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
+    <img src="./img/detail.png" alt="detail">
+    </a>
+<?php endif; ?>
+
+fichier auth.php 
+<?php
+
+$users = [];
+$isUserConnected = 0;
+
+// Récupération du login et password saisi par l'utilisateur >> hash
+$useLogin = $_POST["useLogin"] ?? "";
+$userPassword = $_POST["usePassword"] ?? "";
+
+// Récupération du login et password saisi par l'admin
+//  $adminLogin = $_POST["adminLogin"]==='admin' ?? "";
+//  $adminPassword = $_POST["adminPassword"==='admin'] ?? "";
+
+// Création d'une instance PDO pour se connecter à la base de données
+$connector = new PDO("mysql:host=localhost:6033;dbname=db_nickname;charset=utf8", 'root', 'root');
+
+$query = "SELECT * FROM t_user where useLogin = :useLogin and usePassword = :usePassword";
+
+// Exécution de la requête. A noter l'utilisation de la méthode ->query()
+$req = $connector->prepare($query);
+$req -> bindValue('useLogin', $useLogin, PDO::PARAM_STR);
+$req -> bindValue('usePassword', $userPassword, PDO::PARAM_STR);
+$req -> execute();
+
+// On convertit le résultat de la requête en tableau
+$user = $req->fetchALL(PDO::FETCH_ASSOC);
+
+// Si le tableau 'user' n'est pas vide, cela signifie que l'utilisateur a bien été trouvé en DB
+if ($user) {
+    $isUserConnected = true;
+    $_SESSION['user'] = $useLogin;
+}else{
+    $isUserConnected = false;
+    die();
+}
+
+?>

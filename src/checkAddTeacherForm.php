@@ -1,12 +1,16 @@
 <?php
-
-include("../Database.php");
-$db = new Database();
-
-//Vérifie si les données sont correctement rempli
-
-//Ouverture de la session
 session_start();
+// Inclure le fichier Database.php
+include '../Database.php';
+include '../src/auth.php';
+
+// Démarre session 
+if ($user) {
+    $_SESSION['user_id'] = $user[0]["idUser"];  
+    $isUserConnected = true;
+} else {
+    $isUserConnected = false;
+}
 
 //Tableau contenant les erreurs lors du remplissage du formulaire
 $errors = array();
