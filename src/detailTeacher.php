@@ -60,9 +60,6 @@
             </p>
             <div class="actions">
                 <!-- Lien qui mène vers la page détail de chaque enseignant -->
-                <a href="./detailTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
-                    <img src="./img/detail.png" alt="detail">
-                </a>
                 <a href="./updateTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
                     <img height="20em" src="./img/edit.png" alt="edit icon">
                 </a>

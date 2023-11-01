@@ -118,6 +118,12 @@
                                 </a>
                             <?php endif; ?>
                             <?php if ($isUserConnected !== 1) : ?>
+                                <a href="./updateTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
+                                    <img src="./img/edit.png" alt="edit">
+                                </a>
+                                <a href="javascript:confirmDelete(<?= $enseignant["idTeacher"]; ?>)">
+                                    <img src="./img/delete.png" alt="delete">
+                                </a>
                                 <a href="./detailTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
                                 <img src="./img/detail.png" alt="detail">
                                 </a>

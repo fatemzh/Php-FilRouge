@@ -126,13 +126,6 @@
 
     // Ajout enseignant
     public function insertTeacher($firstName, $name, $gender, $nickname, $origin, $section){
-        // Échapper les chaînes de caractères
-        $firstName = $this->connector->quote($firstName);
-        $name = $this->connector->quote($name);
-        $gender = $this->connector->quote($gender);
-        $nickname = $this->connector->quote($nickname);
-        $origin = $this->connector->quote($origin);
-        $section = $this->connector->quote($section);
     
         //Requête SQL
         $query = "INSERT INTO t_teacher (teaFirstname, teaName, teaGender, teaNickname, teaOrigine, fkSection)  
