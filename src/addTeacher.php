@@ -2,15 +2,16 @@
 session_start();
 // Inclure le fichier Database.php
 include '../Database.php';
-include '../src/auth.php';
 
-// Démarre session 
-if ($user) {
-    $_SESSION['user_id'] = $user[0]["idUser"];  
-    $isUserConnected = true;
-} else {
+if (!isset($_SESSION["user"]) ) {
     $isUserConnected = false;
+} else {
+    $isUserConnected = true;
+    $userName = $_SESSION["user"];
 }
+
+$idTeacher = isset($_GET["idTeacher"]) ? $_GET["idTeacher"] : null;
+
 // Créer une instance de la classe Database
 $db = new Database();
 // Récupérez toutes les sections

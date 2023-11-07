@@ -2,7 +2,6 @@
 session_start();
 // Inclure le fichier Database.php
 include '../Database.php';
-include '../src/auth.php';
 
 // Démarre session 
 if ($user) {
