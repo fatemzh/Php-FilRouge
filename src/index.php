@@ -5,9 +5,8 @@
         $isUserConnected = false;
     } else {
         $isUserConnected = true;
+        $userName = $_SESSION["user"];
     }
-
-    //$userConnected = $_SESSION["user"];
 
     // Inclure le fichier Database.php
     include '../Database.php';
@@ -40,7 +39,7 @@
             </div>
             <div class="login-container">
                     <?php if ($isUserConnected === true): ?> 
-                        <h2>Bonjour <?php echo $_SESSION['user']; ?></h2>  
+                        <h2>Bonjour <?php echo $_POST['useLogin']; ?></h2>  
                         <form action="logout.php" method="post">
                             <button type="submit" name="logout">Se déconnecter</button>
                         </form>
