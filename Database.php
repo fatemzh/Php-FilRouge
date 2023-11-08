@@ -6,6 +6,7 @@
 
     // Crée un nouvel objet PDO et connexion à la BD
     public function __construct(){
+        /*
         // Informations de connexion à la base de données
         $host = 'localhost';   // Nom d'hôte : numéro de port
         $dbname = 'db_nickname';    // Nom de la base de données  
@@ -17,7 +18,11 @@
             "mysql:host=$host;dbname=$dbname;charset=utf8",
             $user,
             $pass
-        );
+        );*/
+         
+        $dir = 'sqlite:' .dirname(__FILE__).'\db-nickname.sqlite';
+        var_dump($dir);
+        $this->connector = new PDO($dir);
     }
 
     // Méthode pour exécuter une requête simple (sans where)
