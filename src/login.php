@@ -2,10 +2,12 @@
 session_start();
 include '../Database.php';
 
+//affecter à $useLogin la valeur de $_POST["useLogin"] s'il existe, sinon une chaîne vide.
 $useLogin = $_POST["useLogin"] ?? "";
 $userPassword = $_POST["usePassword"] ?? "";
 
 $db = new Database();
+// Appelle la méthode 'login' avec les identifiants fournis par l'utilisateur.
 $user = $db->login($useLogin, $userPassword);
 
 
