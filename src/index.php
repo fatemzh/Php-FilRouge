@@ -65,8 +65,10 @@
         </div>
         <nav>
             <h2>Zone pour le menu</h2>
-            <a href="./index.php">Accueil</a>
-            <a href="addTeacher.php">Ajouter un enseignant</a>
+            <?php if ($isUserConnected === true && $_SESSION["user"]["useAdministrator"]===1) :?>                     
+                <a href="./index.php">Accueil</a>
+                <a href="addTeacher.php">Ajouter un enseignant</a>
+            <?php endif; ?>
         </nav>
     </header>
 

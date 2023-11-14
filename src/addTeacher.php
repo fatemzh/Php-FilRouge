@@ -4,8 +4,9 @@ session_start();
 include '../Database.php';
 
 // Démarre session 
-if (!isset($_SESSION["user"]) ) {
+if (!isset($_SESSION["user"])) {
     $isUserConnected = false;
+    header("Location: index.php");
 } else {
     $isUserConnected = true;
     $userName = $_SESSION["user"];
@@ -38,13 +39,12 @@ $sections = $db->getAllSections();
                 <h1>Surnom des enseignants</h1>
             </div>
             <div class="login-container">
-                <form action="#" method="post">
-                    <label for="user"> </label>
-                    <input type="text" name="user" id="user" placeholder="Login">
-                    <label for="password"> </label>
-                    <input type="password" name="password" id="password" placeholder="Mot de passe">
-                    <button type="submit" class="btn btn-login">Se connecter</button>
-                </form>
+                <?php if ($isUserConnected === true && $_SESSION["user"]["useAdministrator"]===1) :?>                     
+                    <h2>Bonjour <?php echo $_SESSION["user"]['useLogin'];?> (admin)</h2>  
+                    <form action="logout.php" method="post">
+                        <button type="submit" name="logout">Se déconnecter</button>
+                    </form>
+                <?php endif; ?>
             </div>
         </div>
         <nav>
