@@ -3,6 +3,7 @@ session_start();
 // Inclure le fichier Database.php
 include '../Database.php';
 
+// Démarre session 
 if (!isset($_SESSION["user"]) ) {
     $isUserConnected = false;
 } else {
