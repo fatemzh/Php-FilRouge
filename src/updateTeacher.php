@@ -1,4 +1,11 @@
 <?php
+/**
+ * ETML
+ * Autrice:     Abid Fatima
+ * Date: 2015   21.11.2023
+ * Description: page de modification des enseignants
+ */
+
 session_start();
 // Inclure le fichier Database.php
 include '../Database.php';

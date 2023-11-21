@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * ETML
+ * Autrice:     Abid Fatima
+ * Date: 2015   21.11.2023
+ * Description: Page permettant de supprimer un enseignant de la base de données.
+ */
+
 session_start();
 // Inclure le fichier Database.php
 include '../Database.php';

@@ -1,14 +1,23 @@
 <?php
+
+/**
+ * ETML
+ * Autrice:     Abid Fatima
+ * Date: 2015   21.11.2023
+ * Description: Page permettant de créer une nouvelle section, de saisir ses informations.
+ */
+
 session_start();
 // Inclure le fichier Database.php
 include '../Database.php';
 
 // Démarre session 
-if ($user) {
-    $_SESSION['user_id'] = $user[0]["idUser"];  
-    $isUserConnected = true;
-} else {
+if (!isset($_SESSION["user"])) {
     $isUserConnected = false;
+    header("Location: index.php");
+} else {
+    $isUserConnected = true;
+    $userName = $_SESSION["user"];
 }
 
 // Créer une instance de la classe Database

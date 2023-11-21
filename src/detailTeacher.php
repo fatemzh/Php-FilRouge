@@ -1,23 +1,31 @@
 <?php
-    session_start();
 
-    if (!isset($_SESSION["user"]) ) {
-    $isUserConnected = false;
-    } else {
-    $isUserConnected = true;
-    $userConnected = $_SESSION["user"];
-    }
+/**
+ * ETML
+ * Autrice:     Abid Fatima
+ * Date: 2015   21.11.2023
+ * Description: page d'affichage des détails des enseignants
+ */
 
-    $idTeacher = isset($_GET["idTeacher"]) ? $_GET["idTeacher"] : null;
-    // Inclure le fichier Database.php
-    include '../Database.php';
+session_start();
 
-    // Créer une instance de la classe Database
-    $db = new Database();
+if (!isset($_SESSION["user"]) ) {
+$isUserConnected = false;
+} else {
+$isUserConnected = true;
+$userConnected = $_SESSION["user"];
+}
 
-    // Récupérer la liste des enseignants depuis la base de données et leurs sections
-    $enseignant = $db->getOneTeacher($idTeacher);
-    $section = $db->getTeacherSection($idTeacher); 
+$idTeacher = isset($_GET["idTeacher"]) ? $_GET["idTeacher"] : null;
+// Inclure le fichier Database.php
+include '../Database.php';
+
+// Créer une instance de la classe Database
+$db = new Database();
+
+// Récupérer la liste des enseignants depuis la base de données et leurs sections
+$enseignant = $db->getOneTeacher($idTeacher);
+$section = $db->getTeacherSection($idTeacher); 
 ?>
 
 <!DOCTYPE html>

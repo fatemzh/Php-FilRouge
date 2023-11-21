@@ -1,8 +1,15 @@
 <?php
+/**
+ * ETML
+ * Autrice:     Abid Fatima
+ * Date: 2015   21.11.2023
+ * Description: Page permettant de modifier les informations de l'enseignant sélectionné et d'ajouter ces modifications à la base de données.
+ */
 
 session_start();
 // Inclure le fichier Database.php
 include '../Database.php';
+$db = new Database();
 
 if (!isset($_SESSION["user"]) ) {
     $isUserConnected = false;

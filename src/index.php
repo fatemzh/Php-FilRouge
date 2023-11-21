@@ -1,4 +1,12 @@
 <?php
+/**
+ * ETML
+ * Autrice:     Abid Fatima
+ * Date: 2015   21.11.2023
+ * Description: page d'accueil de l'application permettant d'afficher les enseignants de la base de données et de les ajouter/modifier/supprimer/afficher en détails pour les comptes
+ *              admin, et uniquement les afficher pour les comptes utilisateurs
+ */
+
 //phpinfo();
     session_start();
 
@@ -6,7 +14,7 @@
         $isUserConnected = false;
     } else {
         $isUserConnected = true;
-        $userName = $_SESSION["user"];
+        $userName = $_SESSION["user"];xxxxxx
     }
 
     // Inclure le fichier Database.php

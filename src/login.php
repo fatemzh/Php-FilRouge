@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * ETML
+ * Autrice:     Abid Fatima
+ * Date: 2015   21.11.2023
+ * Description: page permettant la connexion du compte logué
+ */
+
 session_start();
 include '../Database.php';
 

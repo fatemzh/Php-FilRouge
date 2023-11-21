@@ -1,4 +1,11 @@
 <?php
+/**
+ * ETML
+ * Autrice:     Abid Fatima
+ * Date: 2015   21.11.2023
+ * Description: Page permettant de créer un nouvel enseignant, de saisir ses informations.
+ */
+
 session_start();
 // Inclure le fichier Database.php
 include '../Database.php';

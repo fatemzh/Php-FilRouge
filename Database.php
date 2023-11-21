@@ -1,4 +1,13 @@
+<!-- compte admin > login : Admin, password : admin
+compte user > login : fatem, password: fatem -->
+
 <?php
+/**
+ * ETML
+ * Autrice:     Abid Fatima
+ * Date: 2015   21.11.2023
+ * Description: Class database regroupant les méthodes CRUD de l'application de gestion des surnoms des enseignants
+ */
  class Database {
 
     // Propriété de classe pour stocker la connexion
@@ -19,24 +28,35 @@
             $user,
             $pass
         );
-         
-        // $dir = 'sqlite:' .dirname(__FILE__).'\db-nickname.sqlite';
-        // var_dump($dir);
-        // $this->connector = new PDO($dir);
     }
 
-    // Méthode pour exécuter une requête simple (sans where)
+    /**
+     * Exécute une requête simple et renvoie le résultat.
+     *
+     * @param string $query La requête SQL à exécuter.
+     * @return mixed Le résultat de la requête.
+     */
     private function querySimpleExecute($query){
         $result = $this->connector->query($query);
         return $result;
     }
 
-    // Méthode pour formater les résultats d'une requête en un tableau associatif
+    /**
+     * Méthode pour formater les résultats d'une requête en un tableau associatif.
+     *
+     * @param mixed $result Le résultat de la requête à formater.
+     * @return array Le tableau associatif contenant les données formatées.
+     */
     private function formatData($result){
         $teachers = $result->fetchAll(PDO::FETCH_ASSOC);
         return $teachers;
     }
 
+    /**
+     * Méthode pour récupérer tous les enseignants.
+     *
+     * @return array Le tableau associatif contenant les données de tous les enseignants.
+     */
     // Méthode pour récupérer tous les enseignants
     public function getAllTeachers(){
         // Requête SQL pour récupérer les données des enseignants
@@ -52,6 +72,12 @@
         return $teachers;
     } 
     
+    /**
+     * Récupère la liste des informations pour 1 enseignant.
+     *
+     * @param int $id L'identifiant de l'enseignant.
+     * @return array Le tableau associatif contenant les données de l'enseignant.
+     */
     // Récupère la liste des informations pour 1 enseignant
     public function getOneTeacher($id){
 
@@ -69,6 +95,13 @@
         return $teachers[0];
     }
 
+    /**
+     * Requête qui permet de préparer, de binder et d’exécuter une requête (select avec where ou insert, update et delete).
+     *
+     * @param string $query La requête SQL à préparer et exécuter.
+     * @param array $binds Les valeurs à binder à la requête.
+     * @return mixed Le résultat de la requête.
+     */
     // Requête qui permet de préparer, de binder et d’exécuter une requête (select avec where ou insert, update et delete)
     private function queryPrepareExecute($query, $binds){
 
@@ -85,11 +118,12 @@
         return $result;
     }
 
-    // Vide le jeu d’enregistrement
-    private function unsetData($req){
-        $req->closeCursor();
-    }
-
+    /**
+     * Récupère la section d'un enseignant.
+     *
+     * @param int $id L'identifiant de l'enseignant.
+     * @return array Le tableau associatif contenant les données de la section de l'enseignant.
+     */
     public function getTeacherSection($id) {
         // Requête SQL pour récupérer la section d’un enseignant
         $query = "SELECT secName 
@@ -106,7 +140,12 @@
         // Renvoie le tableau associatif
         return $teacherSection[0];
     }
-
+    
+    /**
+     * Récupère toutes les sections.
+     *
+     * @return array Le tableau associatif contenant les données de toutes les sections.
+     */
     public function getAllSections(){
 
         //Appeler la méthode privée pour executer la requête
@@ -119,6 +158,11 @@
         return $this->formatData($req);
     }
 
+    /**
+     * Ajoute une section.
+     *
+     * @param string $secName Le nom de la section à ajouter.
+     */
     public function addSection($secName){
         // Échapper les chaînes de caractères
         $secName = $this->connector->quote($secName);
@@ -129,6 +173,16 @@
         $this->queryPrepareExecute($query, $binds);
     }
 
+    /**
+     * Insère un nouvel enseignant dans la base de données.
+     *
+     * @param string $firstName Le prénom de l'enseignant.
+     * @param string $name Le nom de l'enseignant.
+     * @param string $gender Le genre de l'enseignant.
+     * @param string $nickname Le surnom de l'enseignant.
+     * @param string $origin L'origine de l'enseignant.
+     * @param int $section L'identifiant de la section de l'enseignant.
+     */
     // Ajout enseignant
     public function insertTeacher($firstName, $name, $gender, $nickname, $origin, $section){
     
@@ -141,6 +195,17 @@
         $this->queryPrepareExecute($query, $binds);
     }
     
+    /**
+     * Modifie les informations d'un enseignant dans la base de données.
+     *
+     * @param int $idTeacher L'identifiant de l'enseignant à modifier.
+     * @param string $firstName Le prénom de l'enseignant.
+     * @param string $name Le nom de l'enseignant.
+     * @param string $gender Le genre de l'enseignant.
+     * @param string $nickname Le surnom de l'enseignant.
+     * @param string $origin L'origine de l'enseignant.
+     * @param int $section L'identifiant de la section de l'enseignant.
+     */
     // Modifier les informations d'un enseignant
     public function modifyTeacher ($idTeacher, $firstName, $name, $gender, $nickname, $origin, $section){
 
@@ -168,6 +233,11 @@
         $this->queryPrepareExecute($query, $binds);
     }
 
+    /**
+     * Supprime un enseignant de la base de données.
+     *
+     * @param int $idTeacher L'identifiant de l'enseignant à supprimer.
+     */
     public function deleteTeacher ($idTeacher){
 
         $query = "DELETE FROM t_teacher WHERE idTeacher = :idTeacher";
@@ -175,6 +245,13 @@
         $this->queryPrepareExecute($query, $binds);
     }
 
+    /**
+     * Connecte un utilisateur en vérifiant son nom d'utilisateur et son mot de passe.
+     *
+     * @param string $useLogin Le nom d'utilisateur de l'utilisateur.
+     * @param string $userPassword Le mot de passe de l'utilisateur.
+     * @return array Les informations de l'utilisateur connecté.
+     */
     public function login($useLogin, $userPassword) {
 
         $query = "SELECT * FROM t_user where useLogin = :useLogin and usePassword = :usePassword";
