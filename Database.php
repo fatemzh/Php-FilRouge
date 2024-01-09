@@ -8,26 +8,29 @@ compte user > login : fatem, password: fatem -->
  * Date: 2015   21.11.2023
  * Description: Class database regroupant les méthodes CRUD de l'application de gestion des surnoms des enseignants
  */
+
  class Database {
 
     // Propriété de classe pour stocker la connexion
     private $connector;
 
-    // Crée un nouvel objet PDO et connexion à la BD
-    public function __construct(){
-        
-        // Informations de connexion à la base de données
-        $host = 'localhost:6033';        // Nom d'hôte : numéro de port
-        $dbname = 'db_nickname';    // Nom de la base de données  
-        $user = 'root';             // ID phpMyAdmin
-        $pass = 'root';             // Mdp phpMyAdmin
-
-        // Se connecter via PDO et stocker la connexion dans la propriété de classe
-        $this->connector = new PDO(
-            "mysql:host=$host;dbname=$dbname;charset=utf8",
-            $user,
-            $pass
-        );
+    /**
+     * Se connecte via PDO et utilise la variable de classe $connector
+     * Constructeur
+     */
+    public function __construct() {
+        // Configuration de la base de donnée
+        $configs = include("../config.php");
+ 
+        // Se connecter via PDO
+        try
+        {
+            $this->connector = new PDO('mysql:host=' . $configs["host"]. ':' . $configs["port"] . ';dbname=' . $configs["dbname"] . ';charset=utf8' , $configs["username"], $configs["password"]);
+        }
+        catch (PDOException $e)
+        {
+            die('Erreur : ' . $e->getMessage());
+        }
     }
 
     /**
@@ -267,5 +270,5 @@ compte user > login : fatem, password: fatem -->
 
         return $user[0];
     }
- }
+}
 ?>

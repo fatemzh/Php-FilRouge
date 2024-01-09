@@ -257,4 +257,50 @@ if ($user) {
     // private function unsetData($req){
     //     $req->closeCursor();
     // }
+
+    fichier config.php
+    <?php
+// Tableau de variables et constantes
+$host = 'localhost:6033';   // Nom d'hôte (peut être localhost si la base de données est sur le même serveur) + numéro port docker
+$dbname = 'db_nickname';    // Nom de la base de données 
+$user = 'root';             // ID phpMyAdmin
+$pass = 'root';             // Mdp phpMyAdmin
+// liste
+
+?>
+<?php
+ 
+/**
+ *
+ * ETML
+ * Auteur : Kathleen Lu
+ * Date : 10.10.23
+ * Description : Contient les paramètres de configuration de la base de données utilisée par la classe Database
+ */
+ 
+return[
+    'host' => 'localhost',
+    'port' => '6033',
+    'dbname' => 'nickname_teachers',
+    'username' => 'root',
+    'password' => 'root'
+];
+ /**
+     * Se connecte via PDO et utilise la variable de classe $connector
+     * Constructeur
+     */
+    public function __construct() {
+        // Configuration de la base de donnée
+        $configs = include("../config.php");
+ 
+        // Se connecter via PDO
+        try
+        {
+            $this->connector = new PDO('mysql:host=' . $configs["host"]. ':' . $configs["port"] . ';dbname=' . $configs["dbname"] . ';charset=utf8' , $configs["username"], $configs["password"]);
+        }
+        catch (PDOException $e)
+        {
+            die('Erreur : ' . $e->getMessage());
+        }
+    }
 ?>

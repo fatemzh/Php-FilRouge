@@ -68,6 +68,7 @@ $section = $db->getTeacherSection($idTeacher);
             <h2>Zone pour le menu</h2>
             <!-- <a href="./index.php">Accueil</a>
             <a href="addTeacher.php">Ajouter un enseignant</a> -->
+            <th><a href="">J'élis</a></th>
         </nav>
     </header>
 
@@ -85,14 +86,13 @@ $section = $db->getTeacherSection($idTeacher);
                 ;?>
             </p>
             <div class="actions">
-                <!-- Lien qui mène vers la page détail de chaque enseignant -->
-                <!-- <a href="./updateTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
+                <!--Lien qui mène vers la page détail de chaque enseignant -->
+                <a href="./updateTeacher.php?idTeacher=<?= $enseignant["idTeacher"]; ?>">
                     <img height="20em" src="./img/edit.png" alt="edit icon">
                 </a>
                 <a href="javascript:confirmDelete(<?= $enseignant["idTeacher"]; ?>)">
                     <img src="./img/delete.png" alt="delete">
-                </a> -->
-
+                </a>
             </div>
             </div>
             <div class="user-body">
@@ -106,6 +106,12 @@ $section = $db->getTeacherSection($idTeacher);
                         <?php
                             echo $enseignant["teaOrigine"];
                         ;?>
+                    </p>
+                    <p>
+                        <?php
+                            echo "nombre de voix : ";
+                            echo $_SESSION['counter'];
+                        ?>
                     </p>
                 </div>
             </div>

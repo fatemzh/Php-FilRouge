@@ -14,17 +14,20 @@
         $isUserConnected = false;
     } else {
         $isUserConnected = true;
-        $userName = $_SESSION["user"];xxxxxx
+        $userName = $_SESSION["user"];
     }
 
     // Inclure le fichier Database.php
     include '../Database.php';
-
+   
     // Créer une instance de la classe Database
     $db = new Database();
-
+    $idTeacher = isset($_GET["idTeacher"]) ? $_GET["idTeacher"] : null;
     // Récupérer la liste des enseignants depuis la base de données
     $enseignants =  $db->getAllTeachers();
+
+    //Initialisation du compteur
+    $counter=0;
 ?>
 
 
@@ -82,18 +85,44 @@
 
     <div class="container">
         <h3>Liste des enseignants</h3>
+        <!-- Bouton pour ajouter plusieurs votes -->
+        <form method='post' action="./checkVotes.php">
+            <button type="submit"><a href="./index.php">Elire plusieurs</a></button>
+        </form>
         <form action="#" method="post">
             <table>
                 <thead>
                     <tr>
+                        <td></td>
                         <th>Nom</th>
                         <th>Surnom</th>
                         <th>Options</th>
+                        <th>Voter</th>
+                        <th>Nombre de voix</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <!-- Affichage de chaque ligne d'enseignant avec son nom et son surnom -->
                 <?php foreach ($enseignants as $enseignant) : ?>
                     <tr>
+                        <!-- Possibilité de cocher le nom d'un enseignant pour voter pour lui et incrémenter son vote dans la DB -->
+                        <td>             
+                            <input type="checkbox" id="checkbox" name="checkbox" value="value" />
+                            <?php
+                                //Vérifie que la checkbox est cochée
+                                if (!empty($_POST['checkbox'])) {
+                                    //Incrémente le compteur
+                                    $counter = $_SESSION['counter']++;
+                                    echo $counter;
+                                    
+                                    // $query = "INSERT INTO t_teacher (teaVoix) VALUES ($counter) 
+                                    // WHERE teaVoix = :teaVoix";
+                                    // $binds = array(':teaVoix' => $teaVoix);
+                                    // //Appeler la méthode pour executer la requête
+                                    // $this->queryPrepareExecute($query, $binds);                                     
+                                }
+                            ?>
+                        </td>
                         <td><?php echo $enseignant['teaFirstname']; ?></td>
                         <td><?php echo $enseignant['teaNickname']; ?></td>
                         <!-- Affichage des boutons d'édition et de suppression -->
@@ -115,17 +144,43 @@
                                 </a>
                             <?php endif; ?>
                         </td>
+                        <td>
+                            <form method='post' action="./checkVotes.php">
+                                <a href="./index.php" name='vote' type="submit" value=''>J'élis</a>
+                                <?php
+                                //Vérifie que le lien est cliquée
+                                if (!isset($_POST['vote'])) {
+                                    //Incrémente le compteur
+                                    $counter = $_SESSION['counter']++;    
+                                    // $query = "INSERT INTO t_teacher (teaVoix) VALUES ($counter) 
+                                    // WHERE teaVoix = :teaVoix";
+                                    // $binds = array(':teaVoix' => $teaVoix);
+                                    // //Appeler la méthode pour executer la requête
+                                    // $this->queryPrepareExecute($query, $binds);
+                                }
+                                ?>
+                            </form>
+                        </td>
+                        <td>
+                            <!-- Affiche le  nombre de voix de l'enseignant -->
+                            <?php
+                                echo $counter;
+                            ?>
+                        </td>
+                        <td>
+                            <!-- Affiche texte selon le classement de l'enseignant -->
+                            <?php
+                                echo "Allez élisez-moi"
+                            ?>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </table>
         </form>
         <script src="js/script.js"></script>
     </div>
-
     <footer>
         <p>Copyright GCR - bulle web-db - 2022</p>
     </footer>
-
 </body>
-
 </html>
